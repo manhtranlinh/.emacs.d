@@ -1,15 +1,15 @@
 (require 'ublt-util)
 
-(require 'flycheck-pyflakes)
-
 (ublt/set-up 'elpy
   (setq elpy-modules '(elpy-module-sane-defaults
                        elpy-module-company
                        elpy-module-eldoc
                        elpy-module-highlight-indentation
                        elpy-module-pyvenv))
-  (setq elpy-rpc-backend "rope")
   (elpy-enable))
+
+(ublt/set-up 'pyvenv
+  (pyvenv-workon "default"))
 
 (ublt/set-up 'python
   (defun ublt/tab-4-spaces ()
@@ -17,9 +17,12 @@
   (add-hook 'python-mode-hook 'ublt/tab-4-spaces)
 
   (ublt/set-up 'flycheck
+    (ublt/set-up 'flycheck-pyflakes)
+
     (defun ublt/python-maybe-flycheck ()
       (when (member (file-name-extension buffer-file-name) '("py"))
         (flycheck-mode +1)))
+
     (add-hook 'python-mode-hook #'ublt/python-maybe-flycheck))
 
   (setq python-check-command "pyflakes"

@@ -76,6 +76,11 @@
 (ublt/set-up 'helm-ag
   (setq helm-ag-insert-at-point t))
 
+(ublt/set-up 'helm-gtags
+  (setq helm-gtags-ignore-case t
+        helm-gtags-use-input-at-cursor t
+        helm-gtags-pulse-at-cursor t))
+
 (setq helm-quick-update t
       ;; helm-maybe-use-default-as-input nil
       helm-split-window-in-side-p 'below

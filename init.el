@@ -101,6 +101,7 @@
     less-css-mode scss-mode
     clojure-mode cider helm-cider clj-refactor
     scala-mode
+    groovy-mode
     elisp-slime-nav
     cask-mode
     js2-mode json-mode
@@ -112,6 +113,7 @@
     go-mode
     lsp-mode lsp-ui
     rust-mode cargo racer lsp-rust company-lsp
+    helm-gtags ggtags
     dockerfile-mode
     protobuf-mode
     systemd

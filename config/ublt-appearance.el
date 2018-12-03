@@ -33,22 +33,26 @@
         nil 2.7))))
 
 
+;;; XXX: `projectile' is slow.
 ;;; Make frame title more useful: project + buffer names
 (defun ublt/frame-title ()
-  (if (and (featurep 'projectile) (projectile-project-p))
-      (let ((prj (projectile-project-name)))
-        (cond
-         (buffer-file-name
-          (format "[%s] %s" prj
-                  ;; TODO: Handle symlinks
-                  (car (projectile-make-relative-to-root (list buffer-file-name)))))
-         ((eq major-mode 'dired-mode)
-          (format "[%s] %s" prj
-                  ;; TODO: Handle symlinks
-                  (car (projectile-make-relative-to-root (list default-directory)))))
-         (t
-          (format "[%s] -- %s" prj (buffer-name)))))
-    (or buffer-file-name (buffer-name))))
+  (or buffer-file-name (buffer-name))
+
+  ;; (if (and (featurep 'projectile) (projectile-project-p))
+  ;;     (let ((prj (projectile-project-name)))
+  ;;       (cond
+  ;;        (buffer-file-name
+  ;;         (format "[%s] %s" prj
+  ;;                 ;; TODO: Handle symlinks
+  ;;                 (car (projectile-make-relative-to-root (list buffer-file-name)))))
+  ;;        ((eq major-mode 'dired-mode)
+  ;;         (format "[%s] %s" prj
+  ;;                 ;; TODO: Handle symlinks
+  ;;                 (car (projectile-make-relative-to-root (list default-directory)))))
+  ;;        (t
+  ;;         (format "[%s] -- %s" prj (buffer-name)))))
+  ;;   (or buffer-file-name (buffer-name)))
+  )
 
 (setq frame-title-format '(:eval (ublt/frame-title)))
 
@@ -630,10 +634,10 @@
 ;; (add-hook 'minibuffer-setup-hook 'ublt/redisplay)
 
 (setq-default
- line-spacing 0.1
+ line-spacing 0.2
 
  ;; Default width that triggers hard-wrap.
- fill-column 90
+ fill-column 120
  )
 
 ;; Buffed-up help system

@@ -212,6 +212,10 @@
 ;; (define-key local-function-key-map "[27~" (kbd "C-<delete>"))
 
 (ublt/define-keys global-map
+  ;; XXX: TouchBar workaround
+  "C-s-5"         'kmacro-start-macro-or-insert-counter
+  "s-5"           'kmacro-end-or-call-macro
+
   ;; Windows manipulation
   "s-1"           'delete-other-windows
   "s-2"           'split-window-vertically
@@ -298,6 +302,9 @@
 
   ;; Ubuntu
   "M-<f4>"        'kmacro-start-macro-or-insert-counter ; F3 is taken by xbindkeys
+
+  "s-<f6>"        'profiler-start
+  "<f6>"          'profiler-report
 
   ;; Right, use C-u if you want digit args
   "M-5"           'query-replace
@@ -638,6 +645,7 @@
   "C-x h"       'helm-mark-all
   "M-a"         'helm-toggle-all-marks
   "C-f"         'helm-follow-mode
+  "C-t"         nil
   'ublt/switch-to-last-buffer 'helm-select-action
   'other-window               'ublt/helm-maybe-exit-minibuffer-other-window)
 (ublt/keys 'helm-buffers helm-buffer-map
@@ -680,7 +688,9 @@
 (ublt/keys 'company company-active-map
   "C-s" 'company-filter-candidates
   "C-d" 'company-show-location
-  "<right>" 'company-complete-selection)
+  "<right>" 'company-complete-selection
+  "RET" nil
+  "<return>" nil)
 
 (ublt/keys "yasnippet" yas-minor-mode-map
   "TAB" nil

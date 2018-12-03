@@ -8,8 +8,8 @@
     (add-hook 'rust-mode-hook (ublt/on-fn 'racer-mode)))
   (add-hook 'racer-mode-hook (ublt/on-fn 'eldoc-mode)))
 
-(ublt/set-up 'lsp-rust
-  (add-hook 'rust-mode-hook 'lsp-rust-enable))
+;; (ublt/set-up 'lsp-rust
+;;   (add-hook 'rust-mode-hook 'lsp-rust-enable))
 
 (ublt/set-up 'company
   (add-hook 'racer-mode-hook (ublt/on-fn 'company-mode)))

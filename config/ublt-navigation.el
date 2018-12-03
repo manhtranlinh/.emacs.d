@@ -220,4 +220,6 @@ of line."
   (interactive)
   (kill-buffer (current-buffer)))
 
+(setq vc-follow-symlinks t)
+
 (provide 'ublt-navigation)
