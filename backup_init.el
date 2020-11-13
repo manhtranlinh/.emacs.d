@@ -90,28 +90,42 @@
 (autoload 'go-mode "go-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 
-(add-hook 'go-mode-hook 'lsp-deferred)
+;;(add-hook 'go-mode-hook 'lsp-deferred)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; (use-package lsp-mode						      ;;
+;;   ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l") ;;
+;;   :init (setq lsp-keymap-prefix "s-l")				      ;;
+;;   :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)   ;;
+;;          (go-mode . lsp)						      ;;
+;;          ;; if you want which-key integration			      ;;
+;;          (lsp-mode . lsp-enable-which-key-integration))		      ;;
+;;   :commands (lsp lsp-deferred))					      ;;
+;; 									      ;;
+;; ;; optionally							      ;;
+;; (use-package lsp-ui :commands lsp-ui-mode)				      ;;
+;; (use-package company-lsp :commands company-lsp)			      ;;
+;; ;; if you are helm user						      ;;
+;; (use-package helm-lsp :commands helm-lsp-workspace-symbol)		      ;;
+;; ;; if you are ivy user						      ;;
+;; (use-package lsp-ivy :commands lsp-ivy-workspace-symbol)		      ;;
+;; (use-package lsp-treemacs :commands lsp-treemacs-errors-list)	      ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package lsp-mode
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  :init (setq lsp-keymap-prefix "s-l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (go-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands (lsp lsp-deferred))
+  :commands lsp
+  :ensure t
+  :diminish lsp-mode
+  :hook
+  (elixir-mode . lsp)
+  :init
+  (add-to-list 'exec-path "/home/linh/elixir/elixir-ls/release"))
 
-;; optionally
-(use-package lsp-ui :commands lsp-ui-mode)
-(use-package company-lsp :commands company-lsp)
-;; if you are helm user
-(use-package helm-lsp :commands helm-lsp-workspace-symbol)
-;; if you are ivy user
-(use-package lsp-ivy :commands lsp-ivy-workspace-symbol)
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
+(defvar lsp-elixir--config-options (make-hash-table))
 
-
-
+(add-hook 'lsp-after-initialize-hook
+	  (lambda ()
+	    (lsp--set-configuration '(:elixirLS, lsp-elixir--config-options))))
 
 
 ;; Xu dung custom file cho chua nhung thong so Emacs tu gen
